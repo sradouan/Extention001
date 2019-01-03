@@ -10,6 +10,4 @@ tableextension 50103 "Item Journal Line Extension" extends "Item Journal Line"
         }
     }
 
-    var
-        myInt: Integer;
 }

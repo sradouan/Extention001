@@ -1,8 +1,8 @@
-pageextension 50103 "Item Ledger Entries Ext" extends "Item Ledger Entries"
+pageextension 50104 "Customer Ledger Entries Ext" extends "Customer Ledger Entries"
 {
     layout
     {
-        addafter("Entry Type")
+        addafter("Currency Code")
         {
             field("Source of sales"; "Source of Sales")
             {

@@ -11,7 +11,7 @@ codeunit 50100 MySalesPostMngt
         With SalesHeader DO Begin
             IF "Document Type" <> "Document Type"::Order then
                 exit;
-            TestField("Source Of Sales"); 
+            TestField("Source Of Sales");
         End;
     End;
     // add fields to item journal table
@@ -28,6 +28,22 @@ codeunit 50100 MySalesPostMngt
     end;
 
     //OnAfterCopyGenJnlLineFromSalesHeader(SalesHeader,Rec); (table 81)
-  //  LOCAL [IntegrationEvent] OnAfterCopyGenJnlLineFromSalesHeader(SalesHeader : Record "Sales Header";VAR GenJournalLine : Record "Gen. Journal Line")
-
+    //  LOCAL [IntegrationEvent] OnAfterCopyGenJnlLineFromSalesHeader(SalesHeader : Record "Sales Header";VAR GenJournalLine : Record "Gen. Journal Line")
+    //***Move fields from sales header to the table Gen. Journal Line
+    [EventSubscriber(ObjectType::Table, Database::"Gen. Journal Line", 'OnAfterCopyGenJnlLineFromSalesHeader', '', true, true)]
+    local procedure MyOnAfterCopyGenJnlLineFromSalesHeader(SalesHeader: Record "Sales Header"; VAR GenJournalLine: Record "Gen. Journal Line")
+    begin
+        GenJournalLine."Source of Sales" := SalesHeader."Source Of Sales";
+    end;
+    //***Move fields from table Gen. Journal Line to table Customer Ledger entry
+    // Option 1: CodeUnit 12 Gen.Jnl.-Post Line
+    //LOCAL [IntegrationEvent] OnAfterInitCustLedgEntry(VAR CustLedgerEntry : Record "Cust. Ledger Entry";GenJournalLine : Record "Gen. Journal Line")
+    //Option 2: Table 21 Cust. Ledger Entry
+    //LOCAL [IntegrationEvent] OnAfterCopyCustLedgerEntryFromGenJnlLine(VAR CustLedgerEntry : Record "Cust. Ledger Entry";GenJournalLine : Record "Gen. Journal Line")
+    //OnAfterCopyCustLedgerEntryFromGenJnlLine
+    [EventSubscriber(ObjectType::Table, Database::"Cust. Ledger Entry", 'OnAfterCopyCustLedgerEntryFromGenJnlLine', '', true, true)]
+    local procedure MyOnAfterCopyCustLedgerEntryFromGenJnlLine(VAR CustLedgerEntry: Record "Cust. Ledger Entry"; GenJournalLine: Record "Gen. Journal Line")
+    begin
+        CustLedgerEntry."Source of Sales" := GenJournalLine."Source Of Sales";
+    end;
 }
