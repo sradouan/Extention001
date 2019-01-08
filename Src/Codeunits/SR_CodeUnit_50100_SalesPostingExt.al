@@ -45,6 +45,6 @@ codeunit 50100 MySalesPostMngt
     local procedure MyOnAfterCopyCustLedgerEntryFromGenJnlLine(VAR CustLedgerEntry: Record "Cust. Ledger Entry"; GenJournalLine: Record "Gen. Journal Line")
     begin
         CustLedgerEntry."Source of Sales" := GenJournalLine."Source Of Sales";
-        Message('0 source of sales is:%1',CustLedgerEntry."Source of Sales");
+        Message('source of sales is:%1', CustLedgerEntry."Source of Sales");
     end;
 }
