@@ -3,7 +3,7 @@ report 50102 "Source of sales"
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
     DefaultLayout = RDLC;
-    RDLCLayout = 'Src/Report/Sourceofsales.rdl';
+    RDLCLayout = 'Src/Reports/Sourceofsales.rdl';
 
     dataset
     {
@@ -33,7 +33,7 @@ report 50102 "Source of sales"
             }
             column(Global_Dimension_1_Code; "Global Dimension 1 Code")
             {
-                IncludeCaption=true;  //table field properties
+                IncludeCaption = true;  //table field properties
             }
             column(Document_No_; "Document No.")
             {
