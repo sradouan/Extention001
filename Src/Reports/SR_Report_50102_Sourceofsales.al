@@ -3,7 +3,7 @@ report 50102 "Source of sales"
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
     DefaultLayout = RDLC;
-    RDLCLayout = 'Src/Reports/Sourceofsales.rdl';
+    RDLCLayout = 'Src/Reports/Sourceofsales.rdlc';
 
     dataset
     {
